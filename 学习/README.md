@@ -12,11 +12,12 @@ server {
     index yysz.html index.html;
     
     # 反向代理到海词
-    location /dict/ {
-        proxy_pass http://hanyu.dict.cn/;
-        proxy_set_header  Host  hanyu.dict.cn;
-        proxy_set_header  User-Agent  "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36";
-        proxy_set_header  Referer  http://hanyu.dict.cn/;
-    }
+ 	location /api/ {
+            proxy_pass http://dict-co.iciba.com;
+            proxy_set_header  Host  dict-co.iciba.com;
+        }
 }
 ```
+
+### yyen.html
+yysz.html的英文版。同样用法。

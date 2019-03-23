@@ -21,17 +21,17 @@
         <div id="content" class="p1" style="text-align: center"></div>
     </p>
     <p style="text-align: center;display:none" id="dict">
-        <span id="pingyin"></span> <br>
+        <span id="yinbiao"></span> <br>
         <audio id="mp3" src="" controls="controls"></audio>
     </p>
     <p style="text-align: center">
-        <button type="button" id="start" class="button">开始</button>
+        <button type="button" id="start" class="button">Start</button>
     </p>
     <p style="text-align: center">
-        <button type="button" id="stop" class="button" style="display: none">停止</button>
+        <button type="button" id="stop" class="button" style="display: none">Stop</button>
     </p>
     <p style="text-align: center">
-        <textarea name="message" rows="10" cols="30" id="input" placeholder="请输入汉字，无需隔断"></textarea>
+        <textarea name="message" rows="10" cols="30" id="input" placeholder="请输入单词,用空格分隔"></textarea>
     </p>
 </body>
 
@@ -45,13 +45,13 @@
 
     startBTN.onclick = function () {
         document.getElementById("dict").style.display = "none";
-        var words_input = document.getElementById("input").value.replace(/\n/g, "").split("");
-        
+        var words_input = document.getElementById("input").value.replace(/\n/g, " ").split(" ")
+
         var words = [];
         for (var i=0; i<words_input.length; i++) {
-            if (words_input[i] != " ") { words.push(words_input[i]) }
+            if (words_input[i] != "") { words.push(words_input[i]) }
         };
-        
+
         if (words.length > 0) {
             startBTN.style.display = "none";
             stopBTN.style.display = "block";
@@ -60,7 +60,7 @@
                 content.innerText = words[index];
             }, 50);
         } else {
-            alert("请在文本框中输入待选汉字");
+            alert("请在文本框中输入待选单词");
         }
 
     };
@@ -77,9 +77,9 @@
             if (httpRequest.readyState == 4 && httpRequest.status == 200) {
                 var responseJson = JSON.parse(httpRequest.responseText);
                 console.log(responseJson.symbols[0].word_symbol);
-                document.getElementById("pingyin").innerText = responseJson.symbols[0].word_symbol;
+                document.getElementById("yinbiao").innerText = responseJson.symbols[0].ph_am;
                 var mp3_el = document.getElementById("mp3");
-                mp3_el.setAttribute("src", responseJson.symbols[0].symbol_mp3);
+                mp3_el.setAttribute("src", responseJson.symbols[0].ph_am_mp3);
                 document.getElementById("dict").style.display = "block";
             }
         };
